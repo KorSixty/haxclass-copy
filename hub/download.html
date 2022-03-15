@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Download Kicks</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/x-icon" href="../favicon.ico" />
+    <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-database.js"></script>
+    <script src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="main.css">
+    <link rel="stylesheet" type="text/css" href="analytics.css">
+    <script src="hub.js" type="text/babel"></script>
+    <script type="text/javascript">
+        
+        // Client keys that allow read-only access.
+        const firebaseConfig = {
+            apiKey: "AIzaSyA4kjMsnaUhaGYL8tCS4FTj2UtGNWYKV14",
+            authDomain: "haxclass.firebaseapp.com",
+            databaseURL: "https://haxclass.firebaseio.com",
+            projectId: "haxclass",
+            storageBucket: "haxclass.appspot.com",
+            messagingSenderId: "425802086346",
+            appId: "1:425802086346:web:595b8d5f7058079a3e0133"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.database();
+
+    </script>
+</head>
+<body>
+    <div id="main" class="MainContainer">
+        <div class="Loader">
+            <div class="lds"><div></div><div></div><div></div></div>
+        </div>
+        <section>
+            <h1>Download All-Time Data</h1>
+            <p>Use this form to download all-time kicks and match summary data for a player.</p>
+            <div class="Picker">
+                <span class="Sub">
+                    <span class="Label Bold">Player:</span>
+                    <input id="username" type="text" placeholder="Screen Name" />
+                </span>
+                <span class="Sub Selector">
+                    <span class="Label Bold">Format:</span>
+                    <select id="format">
+                        <option value="CSV" selected>CSV</option>
+                        <option value="JSON">JSON</option>
+                    </select>
+                </span>
+                <span class="Sub" style="display: none;">
+                    <span class="Label Bold">Since Date:</span>
+                    <input type="text" placeholder="M/D/YYYY" />
+                </span>
+                <span class="Sub">
+                    <button id="download" class="Button__Round Download">Download</button>
+                </span>
+            </div>
+            <p id="message"></p>
+            <textarea id="output" class="DataOutput" autocorrect="off"></textarea>
+        </section>
+    </div>
+    <script type="text/javascript" src="download.js"></script>
+    <script type="text/javascript">
+
+        const KICK_COLS = [
+            "allTimeKick",
+            "playerName",
+            "saved",
+            "direction",
+            "match",
+            "stadium",
+            "timeLimit",
+            "scoreLimit",
+            "scoreRed",
+            "scoreBlue",
+            "time",
+            "kick",
+            "kickType",
+            "fromName",
+            "fromTeam",
+            "fromX",
+            "fromY",
+            "toName",
+            "toTeam",
+            "toX",
+            "toY",
+            "assistName",
+            "assistX",
+            "assistY",
+            "assistTeam",
+        ];
+        const MATCH_COLS = [
+            "allTimeMatch",
+            "playerName",
+            "saved",
+            "size",
+            "match",
+            "stadium",
+            "timeLimit",
+            "scoreLimit",
+            "scoreRed",
+            "scoreBlue",
+            "time",
+            "playersBlue",
+            "playersRed",
+            "players",
+        ];
+
+        function protectCommas(val) {
+            const text = `${val}`;
+            if (text.indexOf(",") > -1) {
+                return `"${text.split(",").join("\,")}"`;
+            } else {
+                return text;
+            }
+        }
+
+        function formatSavedString(saved) {
+            return new Date(saved).toLocaleDateString("en-US", {
+                month: "numeric",
+                day: "numeric",
+                year: "numeric",
+                hour: "numeric",
+                minute: "numeric",
+            }).split(", ").join(" ");
+        }
+
+        function toAllTimeCSV(kickRes) {
+            const kickRows = combineKicks(kickRes).map((k) => {
+                k.allTimeKick = "allTimeKick";
+                k.playerName = kickRes.playerName;
+                k.saved = formatSavedString(k.saved);
+                k.kickType = k.type;
+                return KICK_COLS.map((col) => {
+                    if (col in k) {
+                        if (k[col] === 0) {
+                            return "0";
+                        }
+                        return protectCommas(k[col]);
+                    } else {
+                        return "";
+                    }
+                });
+            });
+            const matchRows = Object.keys(kickRes.matches).map((mid) => {
+                let summary = kickRes.matches[mid];
+                summary.allTimeMatch = "allTimeMatch";
+                summary.playerName = kickRes.playerName;
+                summary.saved = formatSavedString(summary.saved);
+                summary.match = summary.id;
+                return MATCH_COLS.map((col) => {
+                    if (col in summary) {
+                        if (summary[col] === 0) {
+                            return "0";
+                        }
+                        return protectCommas(summary[col]);
+                    } else {
+                        return "";
+                    }
+                });
+            });
+            const rows = [KICK_COLS, MATCH_COLS].concat(kickRows).concat(matchRows);
+            const csv = rows.map(r => r.join(",")).join("\n");
+            return csv;
+        }
+                
+        const onLocal = document.location.hostname === "localhost"
+        const forcedProd = document.location.href.indexOf("l=false") > -1;
+        const isLocal = onLocal && !forcedProd;
+        const fetchPlayer = isLocal ? fetchPlayerKicksFromLocal : fetchPlayerKicksFromFirebase;
+        console.log(`Fetching player data from ${isLocal ? "local" : "Firebase"}.`);
+
+        const userInput = document.getElementById("username");
+        const formatInput = document.getElementById("format");
+        const sinceInput = document.getElementById("since");
+        const submitBtn = document.getElementById("download");
+        const msgEl = document.getElementById("message");
+        const outEl = document.getElementById("output");
+        const mainEl = document.getElementById("main");
+
+        function showMessage(el, msg) {
+            el.innerText = msg;
+        }
+
+        function setLoading(loading) {
+            if (loading) {
+                mainEl.classList.add("Loading");
+            } else {
+                mainEl.classList.remove("Loading");
+            }
+        }
+
+        function downloadAllTimeKicks(username) {
+            return new Promise((resolve, reject) => {
+                fetchPlayer(username).then((kickRes) => {
+                    const lines = [
+                        `Fetched all-time kicks for ${username}:`,
+                        `${Object.keys(kickRes.from).length} from ${username}.`,
+                        `${Object.keys(kickRes.to).length} to ${username}.`,
+                        `${Object.keys(allMatchMap).length} matches for ${username}.`,
+                    ];
+                    const countMsg = lines.join("\n");
+                    allTimeKickMap[username] = kickRes;
+                    resolve({kickRes, countMsg});
+                }).catch((err) => {
+                    const msg = `Failed to find data for player: ${username}`;
+                    console.log(msg);
+                    console.error(err);
+                    reject(msg);
+                });
+            });
+        }
+
+        submitBtn.addEventListener("click", (e) => {
+            const username = userInput.value;
+            const format = formatInput.value;
+            if (username) {
+                setLoading(true);
+                downloadAllTimeKicks(username).then((done) => {
+                    const { kickRes, countMsg } = done;
+                    kickRes.matches = allMatchMap;
+                    setLoading(false);
+                    showMessage(msgEl, countMsg);
+                    if (format === "JSON") {
+                        const allTimeJSON = JSON.stringify(kickRes, null, 2)
+                        outEl.value = allTimeJSON;
+                    } else if (format === "CSV") {
+                        const allTimeCSV = toAllTimeCSV(kickRes);
+                        outEl.value = allTimeCSV;
+                    } else {
+                        const allTimeJSON = JSON.stringify(kickRes, null, 2)
+                        outEl.value = allTimeJSON;
+                        showMessage(msgEl, countMsg + `\nInvalid format: ${format}, using JSON.`);
+                    }
+                    allMatchMap = {};
+                    allTimeKickMap = {};
+                }).catch((msg) => {
+                    setLoading(false);
+                    showMessage(msgEl, msg);
+                });
+            } else {
+                showMessage(msgEl, "No username provided.");
+            }
+        });
+
+
+    </script>
+</body>
+</html>

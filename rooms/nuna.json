@@ -1,0 +1,30 @@
+{
+    "roomName": "Newnas",
+    "maxPlayers": 12,
+    "playerName": "HaxBot",
+    "noPlayer": true,
+    "public": true,
+    "password": "care",
+    "welcomeMessages": [
+        "View stats at: bit.ly/haxml-elo"
+    ],
+    "postGameMessages": [
+        "View stats at: bit.ly/haxml-elo"
+    ],
+
+    "streamLive": true,
+    "streamName": "nuna",
+
+    "saveToFirebase": true,
+    "saveToLocal": false,
+    "showDebugMessages": false,
+    "collectTrace": false,
+
+    "scoreLimit": 3,
+    "timeLimit": 4,
+    "teamsLock": true,
+    "customStadium": "NAFL Official Map v1",
+
+    "colorsRed": "/colors red 0 42182F A03A72 FFFFFF A03A72",
+    "colorsBlue": "/colors blue 90 264445 FFFFFF FFFFFF 407274"
+}

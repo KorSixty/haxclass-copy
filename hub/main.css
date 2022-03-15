@@ -1,0 +1,239 @@
+@import url('https://fonts.googleapis.com/css2?family=Quantico:wght@700&family=Roboto:wght@400;700&display=swap');
+
+:root {
+    --color-dark: rgb(9, 16, 31);
+    --color-medium: rgb(24, 35, 56);
+    --color-light: rgb(39, 53, 82);
+    --color-light-a15: rgba(39, 53, 82, 0.15);
+    --color-light-a25: rgba(39, 53, 82, 0.25);
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--color-medium);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--color-light);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: white;
+    cursor: pointer;
+}
+
+html {
+    font-family: 'Roboto', sans-serif;
+    background: var(--color-dark);
+    color: white;
+}
+
+h1, h2, h3, h4 {
+    font-family: 'Quantico', sans-serif;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+h1 {
+    font-size: 32px;
+    line-height: 38px;
+}
+
+h2 {
+    font-size: 24px;
+    line-height: 30px;
+}
+
+h3 {
+    font-size: 18px;
+    line-height: 24px;
+}
+
+h4 {
+    font-size: 16px;
+    line-height: 22px;
+}
+
+p {
+    font-size: 14px;
+    line-height: 20px;
+}
+
+input {
+    background: var(--color-medium);
+    color: white;
+    border: 1px solid var(--color-light);
+    outline: 1px solid var(--color-light);
+    font-size: 14px;
+    line-height: 20px;
+}
+
+section {
+    margin: 20px auto;
+}
+
+.Main__Container {
+    max-width: 640px;
+    margin: 0 auto;
+}
+
+.Main__Search input {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 5px;
+}
+
+.Main__Limit {
+    display: flex;
+    justify-content: space-between;
+}
+
+.Main__Limit div {
+    vertical-align: top;
+}
+
+.Main__Limit p {
+    margin: 0;
+}
+
+.Main__Limit input {
+    box-sizing: border-box;
+    margin-left: 10px;
+    width: 60px;
+}
+
+.Button__Round {
+    font-family: 'Roboto', sans-serif;
+    box-sizing: border-box;
+    border: none;
+    outline: none;
+    text-decoration: none;
+    padding: 5px 10px;
+    border-radius: 15px;
+    height: 30px;
+    line-height: 20px;
+    color: var(--color-dark);
+}
+
+.Button__Round:hover {
+    cursor: pointer;
+    background: white;
+}
+
+.Button__Fake {
+    opacity: 0.25;
+}
+
+.Button__Fake:hover {
+    cursor: not-allowed;
+    opacity: 0.25;
+}
+
+.Main__ShowMore {
+    text-align: center;
+    font-size: 14px;
+}
+
+.Main__ShowMore button {
+    background: #b5b5b5;    
+}
+
+.Summary__Record {
+    box-shadow: 0 0 5px rgba(39, 53, 82, 0.15);
+    background: var(--color-medium);
+    margin: 10px auto;
+    padding: 5px;
+    font-size: 14px;
+    line-height: 14px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.Summary__Record:hover {
+    box-shadow: 0 0 10px rgba(39, 53, 82, 0.25);
+    background: var(--color-light);
+}
+
+.Summary__Half {
+    vertical-align: top;
+    padding: 5px;
+}
+
+.Summary__Half div, .Summary__Half a {
+    display: inline-block;
+    margin: 2px;
+}
+
+.Summary__Right {
+    text-align: right;
+}
+
+.Summary__Right div {
+    display: block;
+}
+
+.Summary__Half h3 {
+    margin: 0;
+    margin-bottom: 5px;
+}
+
+.Summary__Duration {
+    font-family: 'Roboto', sans-serif;
+    font-weight: normal;
+    margin-left: 10px;
+    opacity: 0.75;
+}
+
+.Summary__ID {
+    background: #f59d78;
+}
+
+.Summary__Replay {
+    background: #58eda5;
+}
+
+.Summary__JSON {
+    background: #b678f5;
+}
+
+.Summary__CSV {
+    background: #63bee6;
+}
+
+.Summary__XG {
+    background: #ed348e;
+}
+
+.Main__Nav .Button__Round {
+    font-family: 'Roboto', sans-serif;
+    border-radius: 5px;
+    margin-top: 10px;
+    margin-right: 10px;
+}
+
+.Main__Nav .Button__Round:last-child {
+    margin-right: 0;
+}
+
+.Nav__Live {
+    background: #f59d78;
+}
+
+.Nav__Player {
+    background: #58eda5;
+}
+
+.Nav__XG {
+    background: #ed348e;
+}
+
+.Nav__Download {
+    background: #63bee6;
+}
+
+.Nav__Leaderboard {
+    background: #b678f5;
+}

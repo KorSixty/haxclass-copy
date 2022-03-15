@@ -1,0 +1,29 @@
+{
+    "roomName": "Zoros Futsal 3v3 4v4",
+    "maxPlayers": 12,
+    "playerName": "HaxBot",
+    "noPlayer": true,
+    "public": true,
+    "welcomeMessages": [
+        "View stats at: bit.ly/haxml-elo"
+    ],
+    "postGameMessages": [
+        "View stats at: bit.ly/haxml-elo"
+    ],
+
+    "streamLive": true,
+    "streamName": "zoro",
+
+    "saveToFirebase": true,
+    "saveToLocal": false,
+    "showDebugMessages": false,
+    "collectTrace": false,
+
+    "scoreLimit": 3,
+    "timeLimit": 4,
+    "teamsLock": true,
+    "customStadium": "NAFL Official Map v1",
+
+    "colorsRed": "/colors red 0 42182F A03A72 FFFFFF A03A72",
+    "colorsBlue": "/colors blue 90 264445 FFFFFF FFFFFF 407274"
+}

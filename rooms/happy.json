@@ -1,0 +1,27 @@
+{
+    "roomName": "Happy Futsal (3v3, 4v4)",
+    "maxPlayers": 12,
+    "playerName": "HaxBot",
+    "noPlayer": true,
+    "public": true,
+    "welcomeMessages": [
+        "The map is identical to NAFL Futsal maps, but with grass background.",
+        "View stats at: bit.ly/haxml-elo"
+    ],
+    "postGameMessages": [
+        "View stats at: bit.ly/haxml-elo"
+    ],
+
+    "streamLive": true,
+    "streamName": "happy",
+
+    "saveToFirebase": true,
+    "saveToLocal": false,
+    "showDebugMessages": false,
+    "collectTrace": false,
+
+    "scoreLimit": 3,
+    "timeLimit": 4,
+    "teamsLock": true,
+    "customStadium": "Happy Futsal 3x3 4x4"
+}

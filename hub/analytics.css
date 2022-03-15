@@ -1,0 +1,596 @@
+:root {
+    --color-futsal: rgb(127, 227, 84);
+    --color-red: rgb(229, 110, 86);
+    --color-blue: rgb(87, 137, 229);
+}
+
+/* Loader */
+
+/* https://loading.io/css */
+
+.lds {
+    display: inline-block;
+    position: relative;
+    width: 80px;
+    height: 80px;
+}
+.lds div {
+    display: inline-block;
+    position: absolute;
+    left: 8px;
+    width: 16px;
+    background: #fff;
+    animation: lds 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+}
+.lds div:nth-child(1) {
+    left: 8px;
+    animation-delay: -0.24s;
+}
+.lds div:nth-child(2) {
+    left: 32px;
+    animation-delay: -0.12s;
+}
+.lds div:nth-child(3) {
+    left: 56px;
+    animation-delay: 0;
+}
+@keyframes lds {
+    0% {
+        top: 8px;
+        height: 64px;
+    }
+    50%, 100% {
+        top: 24px;
+        height: 32px;
+    }
+}
+
+.Loader {
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    text-align: center;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 2;
+}
+
+.Loader div {
+    margin-top: 25%;
+}
+
+.MainContainer.Loading .Loader {
+    display: block;
+}
+
+/* General Styles */
+
+p {
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    line-height: 18px;
+}
+
+.Bold {
+    font-weight: bold;
+}
+
+/* SVG Field */
+
+.Field {
+    margin: 15px auto;
+}
+
+.field-pitch {
+    fill: var(--color-medium);
+}
+
+.field-line {
+    stroke: rgba(255, 255, 255, 0.5);
+    stroke-width: 2;
+}
+
+.dashed {
+    stroke-dasharray: 10;
+}
+
+.ball {
+    fill: var(--color-futsal);
+}
+
+.player.red {
+    fill: var(--color-red);
+}
+
+.player.blue {
+    fill: var(--color-blue);
+}
+
+.username {
+    fill: white;
+    text-anchor: middle;
+    font-family: 'Roboto', sans-serif;
+}
+
+.shot {
+    stroke-width: 1;
+    stroke-dasharray: 5;
+}
+
+.shot.red {
+    stroke: var(--color-red);
+}
+
+.shot.blue {
+    stroke: var(--color-blue);
+}
+
+/* Player Analytics */
+
+.MainContainer {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 0 10px;
+}
+
+.Selector {
+    display: inline-block;
+    margin: 10px 0;
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.Selector span {
+    margin-right: 15px;
+}
+
+.Selector select {
+    box-sizing: border-box;
+    padding: 5px;
+    background: var(--color-medium);
+    color: white;
+    border: 1px solid var(--color-light);
+    outline: 1px solid var(--color-light);
+    margin-right: 15px;
+    max-width: 200px;
+}
+
+/* Player Comparison */
+
+.PlayerMain__PlayerComparison {
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+.PlayerComparison {
+    display: inline-block;
+    vertical-align: top;
+    background: var(--color-medium);
+    margin: 10px;
+    padding: 10px 20px;
+}
+
+.PlayerComparison:nth-child(1) {
+    margin-left: 0;
+}
+
+.PlayerComparison.NoData {
+    opacity: 0.25;
+}
+
+.PlayerComparison .Remove {
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    color: var(--color-red);
+    float: right;
+    margin-top: 12px;
+}
+
+.PlayerComparison .Remove:hover {
+    cursor: pointer;
+    color: white;
+}
+
+.PlayerComparison .Percentage span {
+    display: block;
+    margin: 5px 0;
+    font-size: 14px;
+    line-height: 14px;
+}
+
+.PlayerComparison .Percentage .Value {
+    font-family: 'Quantico', sans-serif;
+    font-size: 24px;
+    line-height: 24px;
+}
+
+.PlayerComparison .Percentage .Definition {
+    opacity: 0.5;
+}
+
+.PlayerComparisonInput input {
+    display: block;
+    margin: 10px 0;
+}
+
+.PlayerComparisonInput input[type="text"] {
+    padding: 5px;
+}
+
+.PlayerComparisonInput input[type="button"] {
+    background: var(--color-futsal);
+    color: var(--color-dark);
+    border: 1px solid var(--color-light);
+    outline: 1px solid var(--color-light);
+    border-radius: 5px;
+    padding: 5px;
+    font-family: 'Quantico', sans-serif;
+}
+
+.PlayerComparisonInput input[type="button"]:hover {
+    background: white;
+    cursor: pointer;
+}
+
+.Ranking ol {
+    margin-inline-start: -20px;
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.Ranking h4 {
+    font-size: 16px;
+    line-height: 16px;
+    margin-bottom: 0;
+}
+
+/* Compare Kicks */
+
+.KickLegend {
+    display: inline-block;
+    margin: 10px auto;
+}
+
+.KickLegend span {
+    margin-right: 10px;
+    font-family: 'Quantico', sans-serif;
+    font-weight: bold;
+}
+
+.KickLegend span:nth-child(1) {
+    font-family: 'Roboto', sans-serif;
+    font-weight: normal;
+}
+
+/* Live Analytics */
+
+li {
+    font-size: 16px;
+    line-height: 20px;
+}
+
+.MainContainer.Live .CardFake {
+    padding: 0 10px;
+}
+
+.MainContainer.Live .Card {
+    background: var(--color-medium);
+    margin: 7.5px 0;
+    padding: 10px;
+}
+
+.MainContainer.Live .Half:first-child .Card {
+    margin-right: 7.5px;
+}
+
+.MainContainer.Live .Half:last-child .Card {
+    margin-left: 7.5px;
+}
+
+.MainContainer.Live .Card h1,
+.MainContainer.Live .Card h2,
+.MainContainer.Live .Card h3 {
+    margin-top: 0;
+}
+
+.MainContainer.Live .Field {
+    margin-bottom: 7.5px;
+}
+
+.MainContainer.Live .CardField + section {
+    margin-top: 0;
+}
+
+.CardField h3 {
+    position: absolute;
+    margin-top: 5px;
+    margin-left: 5px;
+    opacity: 0.90;
+}
+
+.Halves {
+    display: flex;
+    justify-content: space-between;
+}
+
+.Half {
+    display: inline-block;
+    width: 50%;
+}
+
+.StreamPicker {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+.LiveHeader {
+    box-sizing: border-box;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 0 10px;
+    background: rgba(9, 16, 31, 0.75);
+}
+
+.FakeHeader {
+    height: 30px;
+}
+
+.GameBox {
+    margin: 10px auto;
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 20px;
+    text-align: center;
+}
+
+.GameBox .ClockBox, .GameBox .ScoreBox {
+    display: inline-block;
+}
+
+.ClockBox .Clock, .ScoreBox .Score {
+    margin: 0 10px;
+}
+
+.GameBox .BoxIcon {
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.GameBox .BoxIcon.Red {
+    background: var(--color-red);
+}
+
+.GameBox .BoxIcon.Blue {
+    background: var(--color-blue);
+}
+
+.GameBox .BoxIcon.Live {
+    background: var(--color-futsal);
+}
+
+.GameBox .BoxIcon.Final {
+    background: var(--color-light);
+}
+
+.StatsTable {
+    text-align: left;
+    font-size: 16px;
+    line-height: 16px;
+}
+
+.StatsTable .TableHolder {
+    /*width: 100%;
+    overflow-x: scroll;*/
+}
+
+.StatsTable.Full table {
+    width: 100%;
+    border: none;
+}
+
+.StatsTable th, .StatsTable td {
+    padding: 2px;
+    padding-right: 10px;
+}
+
+.StatsTable th:last-child, .StatsTable td:last-child {
+    padding-right: 0;
+}
+
+.StatsTable th {
+    padding-bottom: 5px;
+    border-bottom: 1px solid white;
+    font-weight: bold;
+    position: relative;
+}
+
+.StatsTable th.HasDescription {
+    text-decoration: underline solid var(--color-futsal);
+}
+
+.StatsTable tr:hover, .StatsTable th:hover {
+    background: var(--color-light);
+    cursor: pointer;
+}
+
+.StatsTable .Description {
+    display: none;
+    position: absolute;
+    background: var(--color-light);
+    color: white;
+    padding: 5px;
+    font-weight: normal;
+    bottom: 100%;
+    left: 0;
+    z-index: 5;
+}
+
+.StatsTable th.HasDescription:hover .Description {
+    display: block;
+}
+
+.StatsTable th.Sorted {
+    background: var(--color-light);
+    display: flex;
+    justify-content: space-between;
+}
+
+.StatsTable .SortArrow {
+    font-size: 10px;
+}
+
+.StatsTable .TitleAndSearch {
+    display: flex;
+    justify-content: space-between;
+    font-size: 18px;
+    line-height: 22px;
+    padding: 0 4px;
+    margin-bottom: 4px;
+}
+
+.StatsTable .Title {
+    font-family: 'Quantico', sans-serif;
+}
+
+/* Download All-Time Kicks */
+
+.Picker {
+    font-size: 14px;
+    line-height: 20px;
+    vertical-align: middle;
+}
+
+.Picker .Label{
+    margin-right: 5px;
+}
+
+.Picker .Sub {
+    margin-right: 10px;
+}
+
+.Picker .Sub:last-child {
+    margin-right: 0;
+}
+
+.Download {
+    background: #63bee6;
+}
+
+.DataOutput {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+    min-width: 100%;
+    min-height: 400px;
+    height: 400px;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid var(--color-light);
+    background: var(--color-medium);
+    color: white;
+    outline: none;
+}
+
+/* Expected Goals (XG) Analytics */
+
+.XGPicker {
+    display: flex;
+    justify-content: space-between;
+}
+
+.XGPicker .Model input {
+    width: 110px;
+}
+
+.XGPicker .TextOnly {
+    line-height: 24px;
+}
+
+.ViewPicker {
+    text-align: center;
+    margin: 10px 0;
+    margin-top: 15px;
+    font-size: 14px;
+    line-height: 18px;
+}
+
+.ViewPicker .Button__Round {
+    margin: 10px 0;
+    margin-right: 10px;
+}
+
+.ViewPicker .Button__Round:last-child {
+    margin-right: 0;
+}
+
+.ViewPicker .Button__Round:hover {
+    background: white;
+}
+
+.ViewShot {
+    background: var(--color-futsal);
+    border-radius: 5px;
+    font-size: 14px;
+    line-height: 14px;
+    padding: 5px;
+}
+
+.ViewShot.SelectedKick {
+    background: white;
+}
+
+.TimePlot img {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.BtnField {
+    background: #b678f5;
+}
+
+.BtnTimePlot {
+    background: #63bee6;
+}
+
+.BtnReplay {
+    background: #ed348e;
+}
+
+.BtnPostGame {
+    background: #f59d78;
+}
+
+/* Leaderboard */
+
+.Btn__Small {
+    padding: 5px;
+    border-radius: 5px;
+    background: var(--color-light);
+    color: white;
+    border: none;
+    outline: none;
+}
+
+.Btn__Small:hover {
+    cursor: pointer;
+    background: white;
+    color: var(--color-light);
+}
+
+.ELOChart {
+    position: relative;
+}
+
+.ELOChart__Toggle {
+    position: absolute;
+    bottom: 3px;
+    right: 0;
+}
